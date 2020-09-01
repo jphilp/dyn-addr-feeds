@@ -7,10 +7,14 @@ import json
 from jnpr.junos import Device
 from jnpr.junos.utils.config import Config
 
+test_srx = '172.16.100.225'
+test_user = 'jphilp'
+test_password = 'Juniper123'
+
 locations = ["NorthCentralUS","SouthCentralUS" ]
 feedname = 'ServiceTags_Public_20200810.json'
 feed_server = 'AZURE'
-feed_url = 'jphilp.github.io'
+feed_url = 'raw.githubusercontent.com/jphilp/dyn-addr-feeds/master/azure/servicetag'
 feed_update_interval = 1800
 feed_hold_interval = 864000
 feed_names = []
@@ -34,9 +38,9 @@ for servicetag in feed['values'] :
 
 config_candidate = { 'configuration' : { 'security' : { 'dynamic-address' : { 'feed-server' : [ { 'name' : feed_server, 'url' : feed_url, 'feed-name' : feed_names } ], 'address-name': feed_addresses } } } }
 
-print(json.dumps(config_candidate, indent=4))
+# print(json.dumps(config_candidate, indent=4))
 
-dev = Device('172.16.100.222', user='jphilp', password='Juniper123').open()
+dev = Device(test_srx, user=test_user, password=test_password).open()
 with Config(dev, mode='exclusive') as cu:  
     cu.load(json.dumps(config_candidate), format='json')
     cu.pdiff()
