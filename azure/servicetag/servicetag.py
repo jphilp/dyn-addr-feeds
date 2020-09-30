@@ -3,6 +3,7 @@
 import os
 import sys
 import json
+import re
 
 from jnpr.junos import Device
 from jnpr.junos.utils.config import Config
@@ -12,13 +13,14 @@ test_user = 'jphilp'
 test_password = 'Juniper123'
 
 locations = ["NorthCentralUS","SouthCentralUS" ]
-feedname = 'ServiceTags_Public_20200810.json'
+feedname = 'ServiceTags_Public_20200928.json'
 feed_server = 'AZURE'
 feed_url = 'raw.githubusercontent.com/jphilp/dyn-addr-feeds/master/azure/servicetag'
-feed_update_interval = 1800
+feed_update_interval = 21600
 feed_hold_interval = 864000
 feed_names = []
 feed_addresses = []
+ipv4_pattern = re.compile(".*\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
 
 
 with open(os.path.join(sys.path[0], feedname), "r") as read_file:
@@ -34,7 +36,8 @@ for servicetag in feed['values'] :
         os.makedirs(os.path.join(sys.path[0], service[1], service[0]), exist_ok=True)
         with open(os.path.join(sys.path[0], service[1], service[0] + "\ipv4"), "w+") as f:
             for ipaddress in servicetag['properties']['addressPrefixes'] :
-                f.writelines(ipaddress + "\n")
+                if (ipv4_pattern.match(ipaddress)) :
+                    f.writelines(ipaddress + "\n")
 
 config_candidate = { 'configuration' : { 'security' : { 'dynamic-address' : { 'feed-server' : [ { 'name' : feed_server, 'url' : feed_url, 'feed-name' : feed_names } ], 'address-name': feed_addresses } } } }
 
