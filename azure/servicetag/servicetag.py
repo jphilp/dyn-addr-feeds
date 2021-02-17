@@ -13,7 +13,7 @@ test_user = 'jphilp'
 test_password = 'Juniper123'
 
 locations = ["NorthCentralUS","SouthCentralUS" ]
-feedname = 'ServiceTags_Public_20210111.json'
+feedname = 'ServiceTags_Public_20210215.json'
 feed_server = 'AZURE'
 feed_url = 'raw.githubusercontent.com/jphilp/dyn-addr-feeds/master/azure/servicetag'
 feed_update_interval = 21600
@@ -41,11 +41,11 @@ for servicetag in feed['values'] :
 
 config_candidate = { 'configuration' : { 'security' : { 'dynamic-address' : { 'feed-server' : [ { 'name' : feed_server, 'url' : feed_url, 'feed-name' : feed_names } ], 'address-name': feed_addresses } } } }
 
-# print(json.dumps(config_candidate, indent=4))
+print(json.dumps(config_candidate, indent=4))
 
-dev = Device(test_srx, user=test_user, password=test_password).open()
-with Config(dev, mode='exclusive') as cu:  
-    cu.load(json.dumps(config_candidate), format='json')
-    cu.pdiff()
-    cu.commit()
-dev.close()
+#dev = Device(test_srx, user=test_user, password=test_password).open()
+#with Config(dev, mode='exclusive') as cu:  
+#    cu.load(json.dumps(config_candidate), format='json')
+#    cu.pdiff()
+#    cu.commit()
+#dev.close()
