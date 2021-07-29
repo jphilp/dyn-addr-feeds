@@ -13,7 +13,7 @@ test_user = 'jphilp'
 test_password = 'Juniper123'
 
 locations = ["NorthCentralUS","SouthCentralUS" ]
-feedname = 'ServiceTags_Public_20210215.json'
+feedname = 'ServiceTags_Public_20210726.json'
 feed_server = 'AZURE'
 feed_url = 'raw.githubusercontent.com/jphilp/dyn-addr-feeds/master/azure/servicetag'
 feed_update_interval = 21600
