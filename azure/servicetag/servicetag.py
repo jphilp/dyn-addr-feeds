@@ -34,7 +34,7 @@ for servicetag in feed['values'] :
         feed_names.append({ 'name' : service[1] + "-" + service[0]+"-ipv4", 'path' : service[1] + "/" + service[0] + "/ipv4", 'update-interval' : feed_update_interval, 'hold-interval' : feed_hold_interval })
         feed_addresses.append({ 'name' : "DYN-" + feed_server + "-" + service[1] + "-" + service[0]+"-ipv4", 'profile' : { 'feed-name' : [ { 'name' : service[1] + "-" + service[0]+"-ipv4"} ] } })
         os.makedirs(os.path.join(sys.path[0], service[1], service[0]), exist_ok=True)
-        with open(os.path.join(sys.path[0], service[1], service[0] + "\ipv4"), "w+") as f:
+        with open(os.path.join(sys.path[0], service[1], service[0] + "/ipv4"), "w+") as f:
             for ipaddress in servicetag['properties']['addressPrefixes'] :
                 if (ipv4_pattern.match(ipaddress)) :
                     f.writelines(ipaddress + "\n")
