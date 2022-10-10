@@ -12,8 +12,8 @@ test_srx = '172.16.100.225'
 test_user = 'jphilp'
 test_password = 'Juniper123'
 
-locations = ["NorthCentralUS","SouthCentralUS" ]
-feedname = 'ServiceTags_Public_20220905.json'
+locations = ["NorthCentralUS","SouthCentralUS","FirstParty" ]
+feedname = 'ServiceTags_Public_20221003.json'
 feed_server = 'AZURE'
 feed_url = 'raw.githubusercontent.com/jphilp/dyn-addr-feeds/master/azure/servicetag'
 feed_update_interval = 21600
